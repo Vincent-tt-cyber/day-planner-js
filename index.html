@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список задач</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- styles -->
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Мои задачи</h1>
+        <div class="date" id="currentDate">Понедельник, 5 июня</div>
+      </div>
+      <div class="input-area">
+        <input
+          class="task-input"
+          type="text"
+          placeholder="Добавить новую задачу..."
+        />
+        <button class="addTaskBtn" type="button">+</button>
+      </div>
+      <div class="filters">
+        <button class="active" data-filter="all">Все</button>
+        <button data-filter="active">Активные</button>
+        <button data-filter="completed">Завершенные</button>
+      </div>
+      <div class="tasks" id="tasksContiner">
+        <!-- Список задач -->
+      </div>
+      <div class="stats">
+        <span class="taskCount">0 задач</span>
+      </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+  </body>
+</html>

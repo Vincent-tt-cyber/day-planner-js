@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  border: none;
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.header {
+  padding: 25px;
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.header h1 {
+  font-weight: 600;
+  font-size: 25px;
+  margin: 0 0 5px 0;
+}
+
+.date {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid transparent;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.input-area input:focus {
+  background: #e0e0e0;
+  border-color: #6a11cb;
+}
+
+.input-area button {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.input-area button:hover {
+  transform: scale(1.05);
+}
+
+.input-area button:active {
+  transform: scale(0.95);
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  gap: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filters button {
+  padding: 8px 15px;
+  /* background-color: transparent; */
+  border-radius: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filters button.active {
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+}
+
+.tasks {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.stats {
+  text-align: center;
+  padding: 15px 20px;
+  color: #888;
+  font-size: 14px;
+}
