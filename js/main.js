@@ -133,11 +133,22 @@ document.addEventListener("DOMContentLoaded", () => {
       taskElement.className = `task ${task.completed ? "completed" : ""}`;
       taskElement.setAttribute("data-id", task.id);
 
+      const formatedDate = new Date(task.created_at).toLocaleString("ru-Ru", {
+        day: "numeric",
+        month: "2-digit",
+        year: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+      });
+      console.log(formatedDate);
+
       taskElement.innerHTML = `
         <div class="checkbox ${task.completed ? "active" : ""}">
           <div class="checkbox-bg"></div>
         </div>
-         <div class="task-content">${task.title}</div>\
+         <div class="task-content"> <h4>${task.title}</h4>
+          <p>${formatedDate}</p>
+         </div>
           <button class="delete-btn"></button>
       `;
 
