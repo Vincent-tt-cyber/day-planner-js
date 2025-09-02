@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const newTask = {
       id: Date.now(),
-      taskTitle,
+      title: taskTitle,
       completed: false,
       created_at: new Date(),
     };
@@ -56,7 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   Обновление счетчика задач
   function updateTasksCount() {
-    const activeTasks = tasks.filter((task) => !task.completed).length;
+    let activeTasks = tasks.filter((task) => !task.completed).length;
+
     tasksCount.textContent = `${activeTasks} ${
       activeTasks === 1
         ? "задача"
@@ -66,7 +67,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }`;
   }
 
-  //   Отобразить задачи
+  // Сменить статус задачи
+  function toggleTask(id) {
+    tasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    saveTasks();
+    renderTasks();
+  }
+
+  // Удалить задачу
+  function deleteTask(id) {
+    tasks = tasks.filter((task) => task.id !== id);
+    saveTasks();
+    renderTasks();
+  }
+
+  function setFilter(filter) {
+    currentFilter = filter;
+
+    filterButtons.forEach((btn) => {
+      if (btn.dataset.filter === filter) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+    renderTasks();
+    updateTasksCount();
+  }
+
+  // Отобразить задачи
   function renderTasks() {
     let filteredTasks = tasks;
 
@@ -100,16 +134,38 @@ document.addEventListener("DOMContentLoaded", () => {
       taskElement.setAttribute("data-id", task.id);
 
       taskElement.innerHTML = `
-        <div class="checkbox">
-           <input type="checkbox"/>
+        <div class="checkbox ${task.completed ? "active" : ""}">
+          <div class="checkbox-bg"></div>
         </div>
-         <div class="task-content">${task.text}</div>\
-          <button class="delete-btn">+</button>
+         <div class="task-content">${task.title}</div>\
+          <button class="delete-btn"></button>
       `;
 
       tasksContainer.appendChild(taskElement);
+
+      // Обработка событий задач
+      const checkbox = taskElement.querySelector(".checkbox");
+      const deleteBtn = taskElement.querySelector(".delete-btn");
+
+      checkbox.addEventListener("click", () => {
+        toggleTask(task.id);
+      });
+      deleteBtn.addEventListener("click", () => deleteTask(task.id));
     });
   }
+
+  // Обработка собыий
+  addTaskBtn.addEventListener("click", addTask);
+
+  // Обработка на клавишу Enter
+  taskInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addTask();
+  });
+
+  // Обработка фильтров
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => setFilter(btn.dataset.filter));
+  });
 
   updateTasksCount();
   renderTasks();
