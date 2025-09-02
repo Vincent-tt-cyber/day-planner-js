@@ -125,6 +125,7 @@ button {
 }
 .task {
   display: flex;
+  gap: 10px;
   align-items: center;
   padding: 18px 20px;
   border-bottom: 1px solid #f0f0f0;
@@ -136,7 +137,8 @@ button {
   background-color: #f9f9f9;
 }
 
-.task.completed {
+.task.completed .task-content {
+  text-decoration: line-through;
   opacity: 0.5;
 }
 
@@ -144,10 +146,78 @@ button {
   flex: 1;
   transition: all 0.3s ease;
 }
+.checkbox {
+  width: 30px;
+  aspect-ratio: 1;
+  background-color: #f0f0f0;
+  border: 2px solid #6a11cb;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.checkbox-bg {
+  transition: all 0.3s ease;
+  transform: scale(0);
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.checkbox.active .checkbox-bg {
+  transform: scale(1);
+}
+
+.checkbox.active .task-content {
+  text-decoration: line-through;
+}
 
 .delete-btn {
-    text-transform: rotate(45deg);
+  width: 30px;
+  aspect-ratio: 1;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  /* transform: rotate(45deg); */
+  position: relative;
+  opacity: 0.7;
+  text-align: center;
+  overflow: hidden;
 }
+
+.delete-btn:hover {
+  opacity: 1;
+  /* transform: rotate(45deg) scale(1.1); */
+  box-shadow: 0 4px 8px rgba(255, 75, 43, 0.3);
+}
+
+.delete-btn::before,
+.delete-btn::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  background: white;
+  top: 50%;
+  left: 50%;
+}
+
+.delete-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.delete-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 .stats {
   text-align: center;
   padding: 15px 20px;
