@@ -7,6 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterButtons = document.querySelectorAll(".filters button");
   const currentDateEl = document.querySelector("#currentDate");
 
+  let updateInterval;
+
+  function startUpdateInterval() {
+    if (updateInterval) {
+      clearInterval(updateInterval);
+    }
+
+    updateInterval = setInterval(() => renderTasks(), 60000);
+  }
+
   //   Обновления дату
   function updateDate() {
     const now = new Date().toLocaleString("ru-RU", {
@@ -46,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     saveTasks();
     renderTasks();
+    startUpdateInterval();
   }
 
   // Сохранение задач в LocalStorage
@@ -77,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     saveTasks();
     renderTasks();
+    startUpdateInterval();
   }
 
   // Удалить задачу
@@ -84,7 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     tasks = tasks.filter((task) => task.id !== id);
     saveTasks();
     renderTasks();
+    startUpdateInterval();
   }
+
+  startUpdateInterval();
 
   function setFilter(filter) {
     currentFilter = filter;
@@ -98,6 +113,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     renderTasks();
     updateTasksCount();
+  }
+
+  function getTimeDifference(createdDate) {
+    const now = new Date();
+    const created = new Date(createdDate);
+    const diffMs = now - created;
+
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 0) {
+      return `${diffDays}д ${Math.floor(diffHours % 24)}ч назад`;
+    } else if (diffHours > 0) {
+      return `${diffHours}ч ${diffMinutes % 60}м назад`;
+    } else if (diffMinutes > 0) {
+      return `${diffMinutes}м назад`;
+    } else {
+      return "только что";
+    }
   }
 
   // Отобразить задачи
@@ -140,14 +175,15 @@ document.addEventListener("DOMContentLoaded", () => {
         hour: "numeric",
         minute: "numeric",
       });
-      console.log(formatedDate);
+
+      const diffDateFormat = getTimeDifference(task.created_at);
 
       taskElement.innerHTML = `
         <div class="checkbox ${task.completed ? "active" : ""}">
           <div class="checkbox-bg"></div>
         </div>
          <div class="task-content"> <h4>${task.title}</h4>
-          <p>${formatedDate}</p>
+          <p>${formatedDate} • ${diffDateFormat}</p>
          </div>
           <button class="delete-btn"></button>
       `;
