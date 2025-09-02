@@ -123,7 +123,31 @@ button {
   max-height: 400px;
   overflow-y: auto;
 }
+.task {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  animation: fadeIn 0.5s ease;
+  transition: all 0.3s ease;
+}
 
+.task:hover {
+  background-color: #f9f9f9;
+}
+
+.task.completed {
+  opacity: 0.5;
+}
+
+.task-content {
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.delete-btn {
+    text-transform: rotate(45deg);
+}
 .stats {
   text-align: center;
   padding: 15px 20px;
