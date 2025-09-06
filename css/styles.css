@@ -133,6 +133,41 @@ button {
   transition: all 0.3s ease;
 }
 
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-input {
+  padding: 15px;
+  border: 2px solid transparent;
+  background: #fff;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin: 0 0 10px 0;
+}
+.edit-input:focus {
+  border-color: #6a11cb;
+}
+
+.edit-cancel {
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-save {
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+}
+
 .task:hover {
   background-color: #f9f9f9;
 }
@@ -148,7 +183,7 @@ button {
 }
 
 .task-content h4 {
-  color: #6a11cb; 
+  color: #6a11cb;
 }
 
 .task-content p {
