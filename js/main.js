@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="checkbox ${task.completed ? "active" : ""}">
           <div class="checkbox-bg"></div>
         </div>
-         <div class="task-content"> <h4>${task.title}</h4>
+         <div class="task-content"> <h4 class="task-title">${task.title}</h4>
           <p>${formatedDate} • ${diffDateFormat}</p>
          </div>
           <button class="delete-btn"></button>
@@ -194,11 +194,62 @@ document.addEventListener("DOMContentLoaded", () => {
       const checkbox = taskElement.querySelector(".checkbox");
       const deleteBtn = taskElement.querySelector(".delete-btn");
 
+      taskElement.addEventListener("dblclick", function (e) {
+        // Создание небольшой формы
+        const editForm = document.createElement("div");
+        editForm.innerHTML = `
+       <input type="text" class="edit-input" value="${task.title}">
+                            <div class="edit-buttons">
+                                <button class="edit-cancel">Отмена</button>
+                                <button class="edit-save">Сохранить</button>
+                            </div>`;
+
+        taskElement.innerHTML = "";
+        taskElement.appendChild(editForm);
+        taskElement.classList.add("editing");
+
+        const editInput = taskElement.querySelector(".edit-input");
+        editInput.focus();
+        editInput.select();
+
+        // Сохранить изменения
+        taskElement
+          .querySelector(".edit-save")
+          .addEventListener("click", () => {
+            const newTitle = editInput.value.trim();
+            if (newTitle) {
+              editTask(task.id, newTitle);
+            }
+          });
+
+        // Отменить редактирование
+        taskElement
+          .querySelector(".edit-cancel")
+          .addEventListener("click", function () {
+            renderTasks();
+          });
+      });
+
       checkbox.addEventListener("click", () => {
         toggleTask(task.id);
       });
+
       deleteBtn.addEventListener("click", () => deleteTask(task.id));
     });
+  }
+
+  // Редаткирование задачи
+  function editTask(id, newTitle) {
+    tasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, title: newTitle };
+      }
+      return task;
+    });
+
+    saveTasks();
+    renderTasks();
+    startUpdateInterval();
   }
 
   // Обработка собыий
