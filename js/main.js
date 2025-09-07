@@ -222,6 +222,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
 
+        editInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            const newTitle = editInput.value.trim();
+
+            if (newTitle) {
+              editTask(task.id, newTitle);
+            } else {
+              taskElement.querySelector(".edit-cancel").click();
+            }
+          }
+        });
+
         // Отменить редактирование
         taskElement
           .querySelector(".edit-cancel")
